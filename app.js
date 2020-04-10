@@ -12,10 +12,7 @@ let model;
 
     const result = await predict(model);
     console.log(result);
-
-  } catch(e) {
+  } catch (e) {
     console.error(e);
   }
 })();
-
-
