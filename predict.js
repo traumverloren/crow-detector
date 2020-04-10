@@ -35,6 +35,9 @@ async function predict(model) {
 }
 
 /**
+ * Referenced from mobilenet & teachable machine:
+ * @teachablemachine/image/src/custom-mobilenet.ts
+ *
  * Computes the probabilities of the topK classes given logits by computing
  * softmax to get probabilities and then sorting the probabilities.
  * @param labels metadata labels from Teachable Machine for class names.
@@ -64,7 +67,7 @@ async function getTopKClasses(labels, logits, topK = 3) {
     const topClassesAndProbs = [];
     for (let i = 0; i < topkIndices.length; i++) {
       topClassesAndProbs.push({
-        className: labels[topkIndices[i]], //IMAGENET_CLASSES[topkIndices[i]],
+        className: labels[topkIndices[i]],
         probability: topkValues[i],
       });
     }
