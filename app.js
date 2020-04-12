@@ -8,10 +8,16 @@ let model;
 (async function main() {
   try {
     model = await tf.loadLayersModel(DEFAULT_MODEL_LOCATION);
-    model.summary();
+    // model.summary();
 
-    const result = await predict(model);
-    console.log(result);
+    // Gets the ranked list
+    const results = await predict(model);
+
+    // Get the top result's name
+    const topResult = results[0].className;
+    console.log('**************************');
+    console.log('Prediction:', topResult);
+    console.log('**************************');
   } catch (e) {
     console.error(e);
   }

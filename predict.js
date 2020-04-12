@@ -13,10 +13,10 @@ const labels = metadata.labels;
 
 async function predict(model) {
   // Load the picture
-  const image = await loadImage(path.resolve(__dirname, './dasher.jpg'));
+  const image = await loadImage(path.resolve(__dirname, './wilbur.jpg'));
 
   // model is expecting 224x224 image
-  ctx.drawImage(image, 0, 0, 416, 416);
+  ctx.drawImage(image, 0, 0, 224, 224);
 
   // crop & make image a tensor with shape [1, 224, 224, 3]
   const inputImage = camera.capture();
@@ -36,7 +36,7 @@ async function predict(model) {
 
 /**
  * Referenced from mobilenet & teachable machine:
- * @teachablemachine/image/src/custom-mobilenet.ts
+ * See @teachablemachine/image/src/custom-mobilenet.ts
  *
  * Computes the probabilities of the topK classes given logits by computing
  * softmax to get probabilities and then sorting the probabilities.
