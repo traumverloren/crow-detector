@@ -8,7 +8,7 @@ let model;
 (async function main() {
   try {
     model = await tf.loadLayersModel(DEFAULT_MODEL_LOCATION);
-    // model.summary();
+    model.summary();
 
     // Gets the ranked list
     const results = await predict(model);
