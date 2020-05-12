@@ -24,9 +24,11 @@ const DEFAULT_MODEL_LOCATION = `file:///${__dirname}/model/model.json`;
 // })();
 
 // Johnny-Five for RPi
-const raspi = require('raspi-io');
+const Raspi = require('raspi-io').RaspiIO;
 const five = require('johnny-five');
-const board = new five.Board({ io: new raspi() });
+const board = new five.Board({
+  io: new Raspi(),
+});
 
 board.on('ready', () => {
   console.log('board is ready');
