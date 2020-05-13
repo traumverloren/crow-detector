@@ -52,25 +52,13 @@ const DEFAULT_MODEL_LOCATION = `file:///${__dirname}/model/model.json`;
 //   });
 // });
 
-const gpio = require('rpi-gpio');
-const pir = {
-  pin: 7,
-  loopTime: 1500, // check the sensor this often
-  tripped: false,
-  value: undefined,
-};
-const readInterval = () => {
-  gpio.read(pir.pin, (error, value) => {
-    // we only want to move on if something changed
-    if (value === pir.tripped) return (pir.tripped = value);
-    if (pir.tripped) console.log('tripped!');
-    else console.log("it's quiet... a little TOO quiet...");
-  });
-};
-const onSetup = (error) => {
-  if (error) console.error(error);
-  return setInterval(readInterval, pir.loopTime);
-};
+var gpio = require('onoff').Gpio;
+var pir = new gpio(4, 'in', 'both');
 
-gpio.setMode(gpio.MODE_RPI);
-gpio.setup(pir.pin, gpio.DIR_IN, onSetup);
+pir.watch((err, value) => {
+  if (err) {
+    throw err;
+  }
+
+  console.log('motion detected!');
+});
