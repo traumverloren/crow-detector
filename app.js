@@ -39,6 +39,7 @@ pir.watch((err, value) => {
   } else {
     isMotionDetected = false;
   }
+  console.log(isMotionDetected);
 });
 
 process.on('SIGINT', _ => {
