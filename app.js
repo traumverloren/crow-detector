@@ -1,3 +1,6 @@
+const gpio = require('onoff').Gpio;
+const pir = new gpio(4, 'in', 'both');
+
 const tf = require('@tensorflow/tfjs-node');
 const predict = require('./predict');
 
@@ -51,9 +54,6 @@ const DEFAULT_MODEL_LOCATION = `file:///${__dirname}/model/model.json`;
 //     console.log('MOTION ENDED');
 //   });
 // });
-
-var gpio = require('onoff').Gpio;
-var pir = new gpio(4, 'in', 'both');
 
 pir.watch((err, value) => {
   if (err) {
