@@ -27,13 +27,14 @@ const DEFAULT_MODEL_LOCATION = `file:///${__dirname}/model/model.json`;
 // })();
 
 pir.watch((err, value) => {
-  console.log("PIR sensor ON!")
+  console.log('PIR sensor ON!');
   if (err) {
     throw err;
   }
 
   if (value === 1) {
     console.log(value, 'motion DETECTED!');
+  }
 });
 
 process.on('SIGINT', _ => {
