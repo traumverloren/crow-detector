@@ -62,3 +62,7 @@ pir.watch((err, value) => {
 
   console.log('motion detected!');
 });
+
+process.on('SIGINT', _ => {
+  pir.unexport();
+});
