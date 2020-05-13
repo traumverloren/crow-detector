@@ -26,21 +26,14 @@ const DEFAULT_MODEL_LOCATION = `file:///${__dirname}/model/model.json`;
 //   }
 // })();
 
-let isMotionDetected = false;
-
 pir.watch((err, value) => {
+  console.log("PIR sensor ON!")
   if (err) {
     throw err;
   }
 
   if (value === 1) {
-    isMotionDetected = true;
-    console.log(value, 'motion detected!');
-  } else {
-    isMotionDetected = false;
-    console.log(value, 'motion NOT detected!');
-  }
-  console.log(isMotionDetected);
+    console.log(value, 'motion DETECTED!');
 });
 
 process.on('SIGINT', _ => {
