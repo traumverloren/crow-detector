@@ -12,4 +12,4 @@ This is using a Teachable Machine model trained on images of my dogs and runs in
 
 - git clone the repo
 - `npm i`
-- `sudo node app.js` // sudo necessary for johnny-five/raspio-io
+- `node app.js`

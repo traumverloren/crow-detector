@@ -26,35 +26,6 @@ const DEFAULT_MODEL_LOCATION = `file:///${__dirname}/model/model.json`;
 //   }
 // })();
 
-// Johnny-Five for RPi
-// const Raspi = require('raspi-io').RaspiIO;
-// const five = require('johnny-five');
-// const board = new five.Board({
-//   io: new Raspi(),
-// });
-
-// board.on('ready', () => {
-//   console.log('board is ready');
-
-//   // Create a new `motion` hardware instance.
-//   const motion = new five.Motion('P1-7'); //a PIR is wired on pin 7 (GPIO 4)
-
-//   // 'calibrated' occurs once at the beginning of a session
-//   motion.on('calibrated', () => {
-//     console.log('MOTION CALIBRATED');
-//   });
-
-//   // Motion detected
-//   motion.on('motionstart', () => {
-//     console.log('MOTION STARTED');
-//   });
-
-//   // 'motionend' events
-//   motion.on('motionend', () => {
-//     console.log('MOTION ENDED');
-//   });
-// });
-
 pir.watch((err, value) => {
   if (err) {
     throw err;
