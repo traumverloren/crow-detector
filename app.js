@@ -32,6 +32,7 @@ pir.watch((err, value) => {
   }
 
   console.log('motion detected!');
+  console.log(value);
 });
 
 process.on('SIGINT', _ => {
