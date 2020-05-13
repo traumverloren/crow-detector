@@ -35,9 +35,10 @@ pir.watch((err, value) => {
 
   if (value === 1) {
     isMotionDetected = true;
-    console.log('motion detected!');
+    console.log(value, 'motion detected!');
   } else {
     isMotionDetected = false;
+    console.log(value, 'motion NOT detected!');
   }
   console.log(isMotionDetected);
 });
