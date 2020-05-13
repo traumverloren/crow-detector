@@ -1,5 +1,5 @@
 const gpio = require('onoff').Gpio;
-const pir = new gpio(4, 'in', 'both');
+const pir = new gpio(4, 'in', 'rising');
 
 const tf = require('@tensorflow/tfjs-node');
 const predict = require('./predict');
@@ -26,13 +26,19 @@ const DEFAULT_MODEL_LOCATION = `file:///${__dirname}/model/model.json`;
 //   }
 // })();
 
+let isMotionDetected = false;
+
 pir.watch((err, value) => {
   if (err) {
     throw err;
   }
 
-  console.log('motion detected!');
-  console.log(value);
+  if (value === 1) {
+    isMotionDetected = true;
+    console.log('motion detected!');
+  } else {
+    isMotionDetected = false;
+  }
 });
 
 process.on('SIGINT', _ => {
