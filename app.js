@@ -66,6 +66,8 @@ pir.watch((err, value) => {
       clearInterval(cameraBurst);
     }
 
+    cameraBurst();
+
     takePhoto.on('exit', code => {
       console.log(filename + ' was taken');
     });
