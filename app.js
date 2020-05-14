@@ -3,18 +3,13 @@ const gpio = require('onoff').Gpio;
 const pir = new gpio(4, 'in', 'rising');
 
 // child process stuff
-const fs = require('fs');
-const { spawn, fork } = require('child_process');
-const events = require('events');
-const cameraEmitter = new events.EventEmitter();
+const { takePhoto } = require('./camera');
 
 // Tensorflow model stuff
 const tf = require('@tensorflow/tfjs-node');
 const predict = require('./predict');
 
 const DEFAULT_MODEL_LOCATION = `file:///${__dirname}/model/model.json`;
-
-let count = 0;
 
 // let model;
 
@@ -51,26 +46,7 @@ pir.watch((err, value) => {
 
   if (value === 1) {
     console.log('motion DETECTED!');
-
-    // Take a photo with the camera module using Raspistill on the command line with spawn
-    let filename = `${__dirname}/photos/image_${count}.jpg`;
-    let args = ['-bm', '-w', '400', '-h', '400', '-o', filename, '-t', '1'];
-    const takePhoto = spawn('raspistill', args);
-
-    const cameraBurst = setInterval(() => {
-      count++;
-      takePhoto;
-    }, 200);
-
-    if (count % 5 == 0) {
-      clearInterval(cameraBurst);
-    }
-
-    cameraBurst();
-
-    takePhoto.on('exit', code => {
-      console.log(filename + ' was taken');
-    });
+    takePhoto();
   }
 });
 

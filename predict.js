@@ -3,8 +3,8 @@ const tf = require('@tensorflow/tfjs-node');
 const { createCanvas, loadImage } = require('canvas');
 const canvas = createCanvas(224, 224);
 const ctx = canvas.getContext('2d');
-const Camera = require('./camera');
-const camera = new Camera(canvas);
+const Image = require('./image');
+const image = new Image(canvas);
 const path = require('path');
 
 // get class labels from metadata
@@ -19,7 +19,7 @@ async function predict(model) {
   ctx.drawImage(image, 0, 0, 224, 224);
 
   // crop & make image a tensor with shape [1, 224, 224, 3]
-  const inputImage = camera.capture();
+  const inputImage = image.cleanup();
 
   const logits = tf.tidy(() => {
     return model.predict(inputImage);
