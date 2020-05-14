@@ -1,10 +1,18 @@
+// PIR Sensor stuff
 const gpio = require('onoff').Gpio;
 const pir = new gpio(4, 'in', 'rising');
 
+// child process stuff
+const { spawn, fork } = require('child_process');
+const fs = require('fs');
+
+// Tensorflow model stuff
 const tf = require('@tensorflow/tfjs-node');
 const predict = require('./predict');
 
 const DEFAULT_MODEL_LOCATION = `file:///${__dirname}/model/model.json`;
+
+let count = 0;
 
 // let model;
 
@@ -26,6 +34,13 @@ const DEFAULT_MODEL_LOCATION = `file:///${__dirname}/model/model.json`;
 //   }
 // })();
 
+/**
+ * 1. Watch for motion detected
+ * 2. When motion detected, take a picture.
+ * 3. send first pic thru tfjs trained crow/dog/etc model
+ * 4. keep taking photos
+ * 5. if determined it's a crow, tweet photo?
+ */
 pir.watch((err, value) => {
   console.log('PIR sensor ON!');
   if (err) {
@@ -33,10 +48,23 @@ pir.watch((err, value) => {
   }
 
   if (value === 1) {
-    console.log(value, 'motion DETECTED!');
+    console.log('motion DETECTED!');
+
+    // Run raspistill command to take a photo with the camera module
+    let filename = 'photo/image_' + count + '.jpg';
+    let args = ['-w', '400', '-h', '400', '-o', filename, '-t', '1'];
+    let spawn = spawn('raspistill', args);
+
+    spawn.on('exit', code => {
+      console.log(
+        'A photo is saved as ' + filename + ' with exit code, ' + code
+      );
+      count++;
+    });
   }
 });
 
+// Ctrl-C
 process.on('SIGINT', _ => {
   pir.unexport();
 });
