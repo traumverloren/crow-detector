@@ -51,7 +51,7 @@ pir.watch((err, value) => {
     console.log('motion DETECTED!');
 
     // Run raspistill command to take a photo with the camera module
-    let filename = 'photo/image_' + count + '.jpg';
+    let filename = `${__dirname}/photos/image_${count}.jpg`;
     let args = ['-w', '400', '-h', '400', '-o', filename, '-t', '1'];
     const child = spawn('raspistill', args);
 
