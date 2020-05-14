@@ -3,8 +3,8 @@ const gpio = require('onoff').Gpio;
 const pir = new gpio(4, 'in', 'rising');
 
 // child process stuff
-const { spawn, fork } = require('child_process');
 const fs = require('fs');
+const { spawn, fork } = require('child_process');
 
 // Tensorflow model stuff
 const tf = require('@tensorflow/tfjs-node');
@@ -53,9 +53,9 @@ pir.watch((err, value) => {
     // Run raspistill command to take a photo with the camera module
     let filename = 'photo/image_' + count + '.jpg';
     let args = ['-w', '400', '-h', '400', '-o', filename, '-t', '1'];
-    let spawn = spawn('raspistill', args);
+    const child = spawn('raspistill', args);
 
-    spawn.on('exit', code => {
+    child.on('exit', code => {
       console.log(
         'A photo is saved as ' + filename + ' with exit code, ' + code
       );
