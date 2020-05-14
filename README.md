@@ -1,10 +1,10 @@
-# Dog-ML
+# Crow Detector
 
-Use an image classification model trained with Teachable Machine to identify each of my dogs in a Node.js app.
+This project uses an image classification model trained using Google's Teachable Machine to identify each the hooded crow (Nabelkrähe) that visits my window to take the peanuts I leave for them and then tweet their photos.
 
 https://teachablemachine.withgoogle.com/models/1nEpnHry/
 
-This is using a Teachable Machine model trained on images of my dogs and runs in Node.js using tfjs-node.
+This is using a Teachable Machine model trained on images of hooded crows and runs in Node.js using tfjs-node. 100% Javascript!
 
 🚨 Note: Runs on RPI4 with these modifications: https://github.com/yhwang/node-red-contrib-tf-model#note
 

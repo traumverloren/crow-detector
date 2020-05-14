@@ -1,5 +1,5 @@
 {
-  "name": "dog-ml",
+  "name": "crow-detector",
   "version": "1.0.0",
   "description": "https://teachablemachine.withgoogle.com/models/1nEpnHry/",
   "main": "app.js",
@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/traumverloren/dog-ml.git"
+    "url": "git+https://github.com/traumverloren/crow-detector.git"
   },
   "author": "Stephanie Nemeth",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/traumverloren/dog-ml/issues"
+    "url": "https://github.com/traumverloren/crow-detector/issues"
   },
-  "homepage": "https://github.com/traumverloren/dog-ml#readme",
+  "homepage": "https://github.com/traumverloren/crow-detector#readme",
   "dependencies": {
     "@tensorflow/tfjs-node": "1.7.0",
     "canvas": "2.6.0",
