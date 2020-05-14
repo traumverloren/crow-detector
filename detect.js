@@ -8,7 +8,7 @@ let model;
 
 process.on('message', async imagePath => {
   const result = await detect(imagePath);
-  process.send(result);
+  result ? process.send(result) : process.send('');
 
   process.exit(0);
 });
