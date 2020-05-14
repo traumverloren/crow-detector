@@ -5,6 +5,8 @@ const pir = new gpio(4, 'in', 'rising');
 // child process stuff
 const fs = require('fs');
 const { spawn, fork } = require('child_process');
+const events = require('events');
+const cameraEmitter = new events.EventEmitter();
 
 // Tensorflow model stuff
 const tf = require('@tensorflow/tfjs-node');
@@ -56,14 +58,16 @@ pir.watch((err, value) => {
     const takePhoto = spawn('raspistill', args);
 
     takePhoto.on('exit', code => {
-      console.log(filename + 'was taken');
-      if (count % 5 !== 0) {
-        setTimeout(() => {
-          takePhoto;
-        }, 500);
-      }
+      console.log(filename + ' was taken');
       count++;
+      cameraEmitter.emit('photo-finished');
     });
+
+    if (count % 5 !== 0) {
+      cameraEmitter.on('photo-finished', () => {
+        takePhoto;
+      });
+    }
   }
 });
 
