@@ -19,9 +19,7 @@
   "dependencies": {
     "@tensorflow/tfjs-node": "1.7.0",
     "canvas": "2.6.0",
-    "johnny-five": "^1.4.0",
     "onoff": "^6.0.0",
-    "pi-camera": "^1.3.0",
     "raspi-io": "^11.0.0"
   }
 }

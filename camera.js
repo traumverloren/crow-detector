@@ -10,12 +10,34 @@ function takePhoto() {
 
   child.on('exit', code => {
     console.log(filename + ' was taken');
+
+    if (count % 5 === 0) {
+      console.log(filename);
+      // Child process: read the first image and detect crow with trained model
+      let checkPhoto = fork('./detect.js');
+      checkPhoto.send(filename);
+
+      // the child process is completed
+      checkPhoto.on('message', data => {
+        console.log(data);
+      });
+    }
+
     count++;
 
     if (count % 5 !== 0) {
       console.log(count);
       takePhoto();
     }
+  });
+}
+
+function deletePhoto(path) {
+  fs.unlink(path, err => {
+    if (err) {
+      return console.error(err);
+    }
+    console.log(path + ' is deleted.');
   });
 }
 

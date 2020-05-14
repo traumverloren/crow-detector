@@ -1,6 +1,6 @@
 const tf = require('@tensorflow/tfjs-node');
 
-class Image {
+class Photo {
   /**
    * @param {HTMLVideoElement} webcamElement A HTMLVideoElement representing the webcam feed.
    */
@@ -59,4 +59,4 @@ class Image {
   }
 }
 
-module.exports = Image;
+module.exports = Photo;

@@ -3,23 +3,23 @@ const tf = require('@tensorflow/tfjs-node');
 const { createCanvas, loadImage } = require('canvas');
 const canvas = createCanvas(224, 224);
 const ctx = canvas.getContext('2d');
-const Image = require('./image');
-const image = new Image(canvas);
+const Photo = require('./photo');
+const photo = new Photo(canvas);
 const path = require('path');
 
 // get class labels from metadata
 const metadata = require('./model/metadata.json');
 const labels = metadata.labels;
 
-async function predict(model) {
+async function predict(model, imagePath) {
   // Load the picture
-  const image = await loadImage(path.resolve(__dirname, './wilbur.jpg'));
+  const image = await loadImage(path.resolve(imagePath));
 
   // model is expecting 224x224 image
   ctx.drawImage(image, 0, 0, 224, 224);
 
   // crop & make image a tensor with shape [1, 224, 224, 3]
-  const inputImage = image.cleanup();
+  const inputImage = photo.cleanup();
 
   const logits = tf.tidy(() => {
     return model.predict(inputImage);
