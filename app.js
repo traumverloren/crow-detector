@@ -53,13 +53,13 @@ pir.watch((err, value) => {
     // Take a photo with the camera module using Raspistill on the command line with spawn
     let filename = `${__dirname}/photos/image_${count}.jpg`;
     let args = ['-bm', '-w', '400', '-h', '400', '-o', filename, '-t', '1'];
-    const spawn = spawn('raspistill', args);
+    const takePhoto = spawn('raspistill', args);
 
-    spawn.on('exit', code => {
+    takePhoto.on('exit', code => {
       console.log(filename + 'was taken');
       if (count % 5 !== 0) {
         setTimeout(() => {
-          spawn;
+          takePhoto;
         }, 500);
       }
       count++;
