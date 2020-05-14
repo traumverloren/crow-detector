@@ -14,7 +14,7 @@ const predict = require('./predict');
 
 const DEFAULT_MODEL_LOCATION = `file:///${__dirname}/model/model.json`;
 
-let count = 1;
+let count = 0;
 
 // let model;
 
@@ -57,17 +57,18 @@ pir.watch((err, value) => {
     let args = ['-bm', '-w', '400', '-h', '400', '-o', filename, '-t', '1'];
     const takePhoto = spawn('raspistill', args);
 
+    const cameraBurst = setInterval(() => {
+      count++;
+      takePhoto;
+    }, 200);
+
+    if (count % 5 == 0) {
+      clearInterval(cameraBurst);
+    }
+
     takePhoto.on('exit', code => {
       console.log(filename + ' was taken');
-      count++;
-      cameraEmitter.emit('photo-finished');
     });
-
-    if (count % 5 !== 0) {
-      cameraEmitter.on('photo-finished', () => {
-        takePhoto;
-      });
-    }
   }
 });
 
