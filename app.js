@@ -12,7 +12,7 @@ const predict = require('./predict');
 
 const DEFAULT_MODEL_LOCATION = `file:///${__dirname}/model/model.json`;
 
-let count = 0;
+let count = 1;
 
 // let model;
 
@@ -50,15 +50,18 @@ pir.watch((err, value) => {
   if (value === 1) {
     console.log('motion DETECTED!');
 
-    // Run raspistill command to take a photo with the camera module
+    // Take a photo with the camera module using Raspistill on the command line with spawn
     let filename = `${__dirname}/photos/image_${count}.jpg`;
-    let args = ['-w', '400', '-h', '400', '-o', filename, '-t', '1'];
-    const child = spawn('raspistill', args);
+    let args = ['-bm', '-w', '400', '-h', '400', '-o', filename, '-t', '1'];
+    const spawn = spawn('raspistill', args);
 
-    child.on('exit', code => {
-      console.log(
-        'A photo is saved as ' + filename + ' with exit code, ' + code
-      );
+    spawn.on('exit', code => {
+      console.log(filename + 'was taken');
+      if (count % 5 !== 0) {
+        setTimeout(() => {
+          spawn;
+        }, 500);
+      }
       count++;
     });
   }
