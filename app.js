@@ -17,6 +17,7 @@ const { takePhoto } = require('./camera');
 // your program if deleting a large directory tree
 fs.rmdirSync('./photos', { recursive: true });
 fs.mkdirSync('./photos');
+console.log('Removed old photos');
 
 pir.watch((err, value) => {
   console.log('PIR sensor ON!');

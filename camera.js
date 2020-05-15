@@ -10,15 +10,17 @@ function takePhoto() {
   let args = [
     '-bm',
     '-w',
-    '400',
+    '800',
     '-h',
-    '400',
+    '800',
     '-q',
     '100',
     '-o',
     filename,
     '-t',
-    '1000',
+    '2000',
+    '-ex',
+    'sports',
   ];
   const child = spawn('raspistill', args);
 
