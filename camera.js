@@ -23,39 +23,31 @@ function takePhoto() {
     '-o',
     `${filename}-%01d.jpg`,
     '-ex', // exposure setting
-    'sports',
+    'auto',
   ];
   const child = spawn('raspistill', args);
 
   child.on('exit', code => {
     console.log(filename + ' was taken');
 
-    if (count % 5 === 0) {
-      console.log(filename);
-      // Use child_process fork():
-      // read the first image and use trained model to detect if there's a crow
-      let checkPhoto = fork('./detect.js');
-      checkPhoto.send(filename);
+    // Use child_process fork():
+    // Send first burst image to trained model to detect if there's a crow
+    let checkPhoto = fork('./detect.js');
+    checkPhoto.send(`${filename}-1.jpg`);
 
-      // Get result from model
-      checkPhoto.on('message', data => {
-        console.log(data);
+    // Get result from model
+    checkPhoto.on('message', data => {
+      console.log(data);
 
-        if (data === CROW) {
-          // upload to twitter
-        }
+      if (data === CROW) {
+        // upload to twitter
+      }
 
-        // TODO: Delete photos to clean up space
-        // deletePhoto(filename);
-      });
-    }
+      // TODO: Delete photos to clean up space
+      // deletePhoto(filename);
+    });
 
     count++;
-
-    if (count % 5 !== 0) {
-      console.log(count);
-      takePhoto();
-    }
   });
 }
 
