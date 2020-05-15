@@ -2,7 +2,7 @@
 const gpio = require('onoff').Gpio;
 const pir = new gpio(4, 'in', 'rising');
 
-// child process stuff
+const fs = require('fs');
 const { takePhoto } = require('./camera');
 
 /**
@@ -12,6 +12,12 @@ const { takePhoto } = require('./camera');
  * 4. keep taking arbitary burst of photos ✅
  * 5. if determined it's a crow, tweet photos?
  */
+
+// Process blocking action which can halt
+// your program if deleting a large directory tree
+fs.rmdirSync('./photos', { recursive: true });
+fs.mkdirSync('./photos');
+
 pir.watch((err, value) => {
   console.log('PIR sensor ON!');
   if (err) {
