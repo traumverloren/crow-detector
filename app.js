@@ -15,8 +15,8 @@ const { takePhoto } = require('./camera');
 
 // Process blocking action which can halt
 // your program if deleting a large directory tree
-fs.rmdirSync('./photos', { recursive: true });
-fs.mkdirSync('./photos');
+fs.rmdirSync(`${__dirname}/photos`, { recursive: true });
+fs.mkdirSync(`${__dirname}/photos`);
 console.log('Removed old photos');
 
 pir.watch((err, value) => {

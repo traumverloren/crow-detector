@@ -34,7 +34,7 @@ function takePhoto() {
 
     // Use child_process fork():
     // Send first burst image to trained model to detect if there's a crow
-    let checkPhoto = fork('./detect.js');
+    let checkPhoto = fork(`${__dirname}/detect.js`);
     checkPhoto.send(`${filename}-1.jpg`);
 
     // Get result from model
