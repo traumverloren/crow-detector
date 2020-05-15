@@ -6,21 +6,23 @@ const CROW = 'crow';
 
 // Take a photo with the camera module using Raspistill on the command line with spawn
 function takePhoto() {
-  let filename = `${__dirname}/photos/image_${count}.jpg`;
+  let filename = `${__dirname}/photos/image_${count}`;
   let args = [
-    '-bm',
-    '-n',
-    '-w',
+    '-tl', // timelapse
+    '600', // 5 shots over 3 secondes
+    '-t', // time to take shot (3s since sunny)
+    '3000',
+    '-bm', // burst mode
+    '-n', // no preview
+    '-w', // width
     '800',
-    '-h',
+    '-h', // height
     '800',
-    '-q',
+    '-q', // quality : highest
     '100',
     '-o',
-    filename,
-    '-t',
-    '1000',
-    '-ex',
+    `${filename}-%01d.jpg`,
+    '-ex', // exposure setting
     'sports',
   ];
   const child = spawn('raspistill', args);
