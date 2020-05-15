@@ -9,6 +9,7 @@ function takePhoto() {
   let filename = `${__dirname}/photos/image_${count}.jpg`;
   let args = [
     '-bm',
+    '-n',
     '-w',
     '800',
     '-h',
@@ -18,7 +19,7 @@ function takePhoto() {
     '-o',
     filename,
     '-t',
-    '2000',
+    '1000',
     '-ex',
     'sports',
   ];
