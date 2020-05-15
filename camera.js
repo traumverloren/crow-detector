@@ -1,6 +1,6 @@
 const fs = require('fs');
 const { spawn, fork } = require('child_process');
-let count = 0;
+let count = 1;
 
 const CROW = 'crow';
 
@@ -12,6 +12,8 @@ function takePhoto() {
     '600', // 5 shots over 3 secondes
     '-t', // time to take shot (3s since sunny)
     '3000',
+    '-fs', // start burst count at 1
+    '1',
     '-bm', // burst mode
     '-n', // no preview
     '-w', // width
