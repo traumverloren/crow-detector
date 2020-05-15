@@ -17,9 +17,9 @@ function takePhoto() {
     '-bm', // burst mode
     '-n', // no preview
     '-w', // width
-    '800',
+    '400',
     '-h', // height
-    '800',
+    '400',
     '-q', // quality : highest
     '100',
     '-o',
