@@ -1,5 +1,6 @@
 const fs = require('fs');
 const { spawn, fork } = require('child_process');
+const { sendTweet } = require('./tweet');
 
 let count = 1;
 let hasMotion;
@@ -55,6 +56,7 @@ function takePhoto() {
       if (data === CROW) {
         console.log('CROW IS HERE!');
         // upload to twitter
+        sendTweet(filename);
       }
 
       // TODO: Delete photos to clean up space

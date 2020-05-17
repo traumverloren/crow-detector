@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 // PIR Sensor stuff
 const gpio = require('onoff').Gpio;
 const pir = new gpio(4, 'in', 'both');
