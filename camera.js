@@ -25,13 +25,15 @@ function takePhoto() {
     '-bm', // burst mode
     '-n', // no preview
     '-t', // time to take photo
-    '200',
+    '800',
     '-w', // width
     '400',
     '-h', // height
     '400',
     '-q', // quality : highest
     '100',
+    '-awb',
+    'auto',
     '-o',
     filename,
     '-ex', // exposure setting
