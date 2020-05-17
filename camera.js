@@ -59,10 +59,10 @@ function takePhoto() {
         console.log('CROW IS HERE!');
         // upload to twitter
         sendTweet(filename);
+      } else {
+        // Delete non-crow photos to clean up space for now
+        deletePhoto(filename);
       }
-
-      // TODO: Delete photos to clean up space
-      // deletePhoto(filename);
     });
   });
 }
