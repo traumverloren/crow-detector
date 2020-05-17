@@ -2,8 +2,18 @@ const fs = require('fs');
 const { spawn, fork } = require('child_process');
 
 let count = 1;
-let hasMotion = true;
+let hasMotion;
 const CROW = 'crow';
+
+function startPhoto() {
+  hasMotion = true;
+  console.log('hasMotion is ', hasMotion);
+}
+
+function stopPhoto() {
+  hasMotion = false;
+  console.log('hasMotion is ', hasMotion);
+}
 
 // Take a photo with the camera module using Raspistill on the command line with spawn
 function takePhoto() {
@@ -14,7 +24,7 @@ function takePhoto() {
     '-bm', // burst mode
     '-n', // no preview
     '-t', // time to take photo
-    '500',
+    '200',
     '-w', // width
     '400',
     '-h', // height
@@ -50,16 +60,6 @@ function takePhoto() {
     // deletePhoto(filename);
     // });
   });
-}
-
-function stopPhoto() {
-  hasMotion = false;
-  console.log('hasMotion is ', hasMotion);
-}
-
-function startPhoto() {
-  hasMotion = true;
-  console.log('hasMotion is ', hasMotion);
 }
 
 module.exports = {
