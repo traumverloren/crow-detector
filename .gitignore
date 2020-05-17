@@ -1,3 +1,4 @@
 photos
 node_modules
 .env
+*.save

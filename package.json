@@ -19,7 +19,9 @@
   "dependencies": {
     "@tensorflow/tfjs-node": "1.7.0",
     "canvas": "2.6.0",
+    "dotenv": "^8.2.0",
     "onoff": "^6.0.0",
-    "raspi-io": "^11.0.0"
+    "raspi-io": "^11.0.0",
+    "twitter": "^1.7.1"
   }
 }
