@@ -28,7 +28,7 @@ async function detect(imagePath) {
     // Get the top result's name
     const topResult = results[0].className;
     console.log('**************************');
-    console.log('Prediction:', topResult);
+    console.log('Prediction:', topResult, results[0]);
     console.log('**************************');
     return topResult;
   } catch (e) {

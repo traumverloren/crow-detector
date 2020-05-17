@@ -44,26 +44,36 @@ function takePhoto() {
     if (hasMotion) takePhoto();
 
     // Use child_process fork():
-    // Send first burst image to trained model to detect if there's a crow
-    // let checkPhoto = fork(`${__dirname}/detect.js`);
-    // checkPhoto.send(${filename});
+    // Send image to trained model to detect if there's a crow
+    let checkPhoto = fork(`${__dirname}/detect.js`);
+    checkPhoto.send(filename);
 
     // Get result from model
-    // checkPhoto.on('message', data => {
-    //   console.log(data);
+    checkPhoto.on('message', data => {
+      console.log(data);
 
-    //  if (data === CROW) {
-    // upload to twitter
-    //  }
+      if (data === CROW) {
+        console.log('CROW IS HERE!');
+        // upload to twitter
+      }
 
-    // TODO: Delete photos to clean up space
-    // deletePhoto(filename);
-    // });
+      // TODO: Delete photos to clean up space
+      // deletePhoto(filename);
+    });
+  });
+}
+
+function deletePhoto(imgPath) {
+  fs.unlink(imgPath, err => {
+    if (err) {
+      return console.error(err);
+    }
+    console.log(imgPath + ' is deleted.');
   });
 }
 
 module.exports = {
-  takePhoto,
-  stopPhoto,
   startPhoto,
+  stopPhoto,
+  takePhoto,
 };
