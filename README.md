@@ -22,7 +22,7 @@ A PIR Sensor detects motion and starts the camera taking burst mode photos as lo
 
 Orville the crow pics: https://twitter.com/orvillethecrow
 
-Trained model: https://teachablemachine.withgoogle.com/models/gxgZ2fWAP/
+Trained model: https://teachablemachine.withgoogle.com/models/iPcyCDwcz/
 
 This is using a Teachable Machine model trained on real images of my hooded crow friend and runs in Node.js using tfjs-node.
 
