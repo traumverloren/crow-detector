@@ -1,9 +1,9 @@
 // PIR Sensor stuff
 const gpio = require('onoff').Gpio;
-const pir = new gpio(4, 'in', 'rising');
+const pir = new gpio(4, 'in', 'both');
 
 const fs = require('fs');
-const { takePhoto } = require('./camera');
+const { takePhoto, startPhoto, stopPhoto } = require('./camera');
 
 /**
  * 1. Watch for motion detected ✅
@@ -20,14 +20,19 @@ fs.mkdirSync(`${__dirname}/photos`);
 console.log('Removed old photos');
 
 pir.watch((err, value) => {
-  console.log('PIR sensor ON!');
   if (err) {
     throw err;
   }
 
+  console.log(value);
+
   if (value === 1) {
     console.log('motion DETECTED!');
+    startPhoto();
     takePhoto();
+  } else if (value === 0) {
+    console.log('motion STOPPED!');
+    stopPhoto();
   }
 });
 
