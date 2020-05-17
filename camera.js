@@ -25,7 +25,7 @@ function takePhoto() {
     '-bm', // burst mode
     '-n', // no preview
     '-t', // time to take photo
-    '800',
+    '200',
     '-w', // width
     '400',
     '-h', // height
