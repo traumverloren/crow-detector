@@ -2,6 +2,20 @@
 
 ![](orville.jpg)
 
+## Tech:
+
+- Node.js
+- Tensorflow.js
+- Teachable Machine (Train the model)
+
+## Hardware:
+
+- Raspberry Pi 4 (4GB Ram)
+- PIR Sensor (set for continuous motion detection)
+- Pi Camera V2
+
+![](rpi-cam-setup.jpg)
+
 This project uses an image classification model trained using Google's Teachable Machine to identify the hooded crow (Nabelkrähe) that visits my window to grab some peanuts. It then tweets their photos if a crow is detected.
 
 Orville the crow pics: https://twitter.com/orvillethecrow
