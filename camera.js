@@ -22,22 +22,21 @@ function takePhoto() {
 
   let filename = `${__dirname}/photos/image_${count}.jpg`;
   let args = [
-    '-bm', // burst mode
+    '-rot', // rotate 90 degrees
+    '90',
     '-n', // no preview
     '-t', // time to take photo
-    '200',
+    '800',
     '-w', // width
     '400',
     '-h', // height
     '400',
-    '-q', // quality : highest
-    '100',
+    '-ev',
+    'spotlight',
     '-awb',
-    'auto',
+    'sun',
     '-o',
     filename,
-    '-ex', // exposure setting
-    'auto',
   ];
   const child = spawn('raspistill', args);
 
@@ -49,21 +48,24 @@ function takePhoto() {
     // Use child_process fork():
     // Send image to trained model to detect if there's a crow
     let checkPhoto = fork(`${__dirname}/detect.js`);
-    checkPhoto.send(filename);
 
-    // Get result from model
-    checkPhoto.on('message', data => {
-      console.log(data);
+    if ((/jpg$/).test(filename)) {
+      checkPhoto.send(filename);
 
-      if (data === CROW) {
-        console.log('CROW IS HERE!');
-        // upload to twitter
-        sendTweet(filename);
-      } else {
-        // Delete non-crow photos to clean up space for now
-        deletePhoto(filename);
-      }
-    });
+      // Get result from model
+      checkPhoto.on('message', data => {
+        console.log(data);
+
+        if (data === CROW) {
+          console.log('CROW IS HERE!');
+          // upload to twitter
+          sendTweet(filename);
+        } else {
+          // Delete non-crow photos to clean up space for now
+          // deletePhoto(filename);
+        }
+      });
+    }
   });
 }
 
