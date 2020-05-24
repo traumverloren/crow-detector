@@ -16,7 +16,7 @@ function stopPhoto() {
   hasMotion = false;
   console.log('hasMotion is ', hasMotion);
 
-  if (imagesArray.length > 0) batchPhotos({ isFinished: true });
+  if (imagesArray.length > 0) batchPhotos();
 }
 
 // Take a photo with the camera module using Raspistill on the command line with spawn
@@ -62,7 +62,7 @@ function takePhoto() {
         if (data === CROW) {
           console.log('CROW IS HERE!');
           // batch up to 4 photos to upload to twitter
-          batchPhotos({ filename });
+          batchPhotos(filename);
         } else {
           // Delete non-crow photos to clean up space for now
           deletePhoto(filename);
@@ -74,7 +74,7 @@ function takePhoto() {
 
 // Batch burst images and send multiple images in 1 tweet
 // https://github.com/desmondmorris/node-twitter/issues/54
-function batchPhotos({ filename = null, isFinished = false }) {
+function batchPhotos(filename = null) {
   // Load image if there
   if (filename) {
     const image = fs.readFileSync(filename);
@@ -82,8 +82,9 @@ function batchPhotos({ filename = null, isFinished = false }) {
   }
 
   console.log('Batching photos to tweet....');
+  console.log(imagesArray);
 
-  if (imagesArray.length === 4 || isFinished) {
+  if (imagesArray.length === 4 || !hasMotion) {
     const imagesString = imagesArray.toString();
 
     // Upload images to twitter
