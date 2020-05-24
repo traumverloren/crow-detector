@@ -74,11 +74,12 @@ function takePhoto() {
 
 // Batch burst images and send multiple images in 1 tweet
 // https://github.com/desmondmorris/node-twitter/issues/54
-function batchPhotos({ filename = '', isFinished = false }) {
-  // Load image
-  const image = fs.readFileSync(filename);
-
-  imagesArray.push(image);
+function batchPhotos({ filename = null, isFinished = false }) {
+  // Load image if there
+  if (filename) {
+    const image = fs.readFileSync(filename);
+    imagesArray.push(image);
+  }
 
   if (imagesArray.length === 4 || isFinished) {
     const imagesString = imagesArray.toString();
