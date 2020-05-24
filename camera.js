@@ -4,6 +4,7 @@ const { sendTweet } = require('./tweet');
 
 let count = 1;
 let hasMotion;
+let imagesArray = [];
 const CROW = 'crow';
 
 function startPhoto() {
@@ -14,6 +15,8 @@ function startPhoto() {
 function stopPhoto() {
   hasMotion = false;
   console.log('hasMotion is ', hasMotion);
+
+  batchPhotos({ isFinished: true });
 }
 
 // Take a photo with the camera module using Raspistill on the command line with spawn
@@ -23,7 +26,7 @@ function takePhoto() {
   let filename = `${__dirname}/photos/image_${count}.jpg`;
   let args = [
     '-rot', // rotate 90 degrees
-    '90',
+    '270',
     '-n', // no preview
     '-t', // time to take photo
     '800',
@@ -34,7 +37,7 @@ function takePhoto() {
     '-ev',
     'spotlight',
     '-awb',
-    'sun',
+    'auto',
     '-o',
     filename,
   ];
@@ -49,7 +52,7 @@ function takePhoto() {
     // Send image to trained model to detect if there's a crow
     let checkPhoto = fork(`${__dirname}/detect.js`);
 
-    if ((/jpg$/).test(filename)) {
+    if (/jpg$/.test(filename)) {
       checkPhoto.send(filename);
 
       // Get result from model
@@ -58,15 +61,34 @@ function takePhoto() {
 
         if (data === CROW) {
           console.log('CROW IS HERE!');
-          // upload to twitter
-          sendTweet(filename);
+          // batch up to 4 photos to upload to twitter
+          batchPhotos({ filename });
         } else {
           // Delete non-crow photos to clean up space for now
-          // deletePhoto(filename);
+          deletePhoto(filename);
         }
       });
     }
   });
+}
+
+// Batch burst images and send multiple images in 1 tweet
+// https://github.com/desmondmorris/node-twitter/issues/54
+function batchPhotos({ filename = '', isFinished = false }) {
+  // Load image
+  const image = fs.readFileSync(filename);
+
+  imagesArray.push(image);
+
+  if (imagesArray.length === 4 || isFinished) {
+    const imagesString = imagesArray.toString();
+
+    // Upload images to twitter
+    sendTweet(imagesString);
+
+    // reset images array for next time
+    imagesArray.length = 0;
+  }
 }
 
 function deletePhoto(imgPath) {

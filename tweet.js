@@ -7,22 +7,16 @@ const client = new Twitter({
   access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET,
 });
 
-function sendTweet(filename) {
-  // TODO: send multiple images
-  // https://github.com/desmondmorris/node-twitter/issues/54
-
-  // Load image
-  const data = fs.readFileSync(filename);
-
+function sendTweet(images) {
   // Make post request on media endpoint. Pass file data as media parameter
-  client.post('media/upload', { media: data }, function (
+  client.post('media/upload', { media: images }, function (
     error,
     media,
     response
   ) {
     if (!error) {
       // If successful, a media object will be returned.
-      console.log(media);
+      console.log('Images uploaded!');
 
       // Tweet it
       const status = {
@@ -32,7 +26,7 @@ function sendTweet(filename) {
 
       client.post('statuses/update', status, function (error, tweet, response) {
         if (!error) {
-          console.log(tweet);
+          console.log('Tweet sent!');
         }
       });
     }
