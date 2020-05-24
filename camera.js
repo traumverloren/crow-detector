@@ -16,7 +16,7 @@ function stopPhoto() {
   hasMotion = false;
   console.log('hasMotion is ', hasMotion);
 
-  batchPhotos({ isFinished: true });
+  if (imagesArray.length > 0) batchPhotos({ isFinished: true });
 }
 
 // Take a photo with the camera module using Raspistill on the command line with spawn
