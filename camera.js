@@ -57,7 +57,7 @@ function takePhoto() {
 
       // Get result from model
       checkPhoto.on('message', data => {
-        console.log(data);
+        // console.log(data);
 
         if (data === CROW) {
           console.log('CROW IS HERE!');
@@ -80,6 +80,8 @@ function batchPhotos({ filename = null, isFinished = false }) {
     const image = fs.readFileSync(filename);
     imagesArray.push(image);
   }
+
+  console.log('Batching photos to tweet....');
 
   if (imagesArray.length === 4 || isFinished) {
     const imagesString = imagesArray.toString();
