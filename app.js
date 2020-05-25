@@ -4,9 +4,7 @@ require('dotenv').config();
 const gpio = require('onoff').Gpio;
 const pir = new gpio(4, 'in', 'both');
 
-const fs = require('fs');
 const { takePhoto, startPhoto, stopPhoto } = require('./camera');
-const { sendTweet } = require('./tweet');
 /**
  * 1. Watch for motion detected ✅
  * 2. When motion detected, take a picture ✅
