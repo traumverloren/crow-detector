@@ -6,7 +6,7 @@ const pir = new gpio(4, 'in', 'both');
 
 const fs = require('fs');
 const { takePhoto, startPhoto, stopPhoto } = require('./camera');
-
+const { sendTweet } = require('./tweet');
 /**
  * 1. Watch for motion detected ✅
  * 2. When motion detected, take a picture ✅
@@ -22,6 +22,16 @@ const { takePhoto, startPhoto, stopPhoto } = require('./camera');
 // console.log('Removed old photos');
 
 console.log('STARTING CROW CAM!!!');
+
+// TO TEST NEW TWITTER BATCHING AGAIN
+const fileArray = [];
+fileArray.push(fs.readFileSync(`${__dirname}/photos/image_151.jpg`));
+fileArray.push(fs.readFileSync(`${__dirname}/photos/image_152.jpg`));
+fileArray.push(fs.readFileSync(`${__dirname}/photos/image_153.jpg`));
+fileArray.push(fs.readFileSync(`${__dirname}/photos/image_154.jpg`));
+
+sendTweet(fileArray);
+//
 
 pir.watch((err, value) => {
   if (err) {

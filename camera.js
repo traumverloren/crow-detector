@@ -85,10 +85,8 @@ function batchPhotos(filename = null) {
   console.log(imagesArray);
 
   if (imagesArray.length === 4 || !hasMotion) {
-    const imagesString = imagesArray.toString();
-
     // Upload images to twitter
-    sendTweet(imagesString);
+    sendTweet(imagesArray);
 
     // reset images array for next time
     imagesArray.length = 0;

@@ -7,31 +7,69 @@ const client = new Twitter({
   access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET,
 });
 
-function sendTweet(images) {
-  // Make post request on media endpoint. Pass file data as media parameter
-  client.post('media/upload', { media: images }, function (
-    error,
-    media,
-    response
-  ) {
-    if (!error) {
-      // If successful, a media object will be returned.
-      console.log('Images uploaded!');
-
-      // Tweet it
-      const status = {
-        status: '🥜 time!',
-        media_ids: media.media_id_string, // Pass the media id string
-      };
-
-      client.post('statuses/update', status, function (error, tweet, response) {
-        if (!error) {
-          console.log('Tweet sent!');
-        }
-      });
-    }
+const uploadImage = image => {
+  return new Promise((resolve, reject) => {
+    client.post('media/upload', { media: image }, function (
+      error,
+      media,
+      response
+    ) {
+      if (!error) {
+        console.log('Image uploaded!', media);
+        resolve(media.media_id_string);
+      } else {
+        console.log(error, 'There was an error posting the image!');
+        reject();
+      }
+    });
   });
-}
+};
+
+const uploadImages = images => {
+  const promises = [];
+
+  images.forEach(image => {
+    promises.push(uploadImage(image));
+  });
+
+  return Promise.all(promises);
+};
+
+const postTweet = imageIds => {
+  console.log('imageIds: ', imageIds);
+  const imagesString = imageIds.toString();
+  console.log(imagesString);
+
+  const status = {
+    status: '🥜 time!',
+    media_ids: imagesString, // Pass the media ids string
+  };
+
+  return new Promise((resolve, reject) => {
+    client.post('statuses/update', status, function (error, tweet, response) {
+      if (!error) {
+        console.log('Tweet posted!');
+        resolve(tweet);
+      } else {
+        console.log(error, 'There was an error posting the image!');
+        reject();
+      }
+    });
+  });
+};
+
+const sendTweet = async images => {
+  // Make post request on media endpoint. Pass file data as media parameter
+  try {
+    const imageIds = await uploadImages(images);
+    const tweet = await postTweet(imageIds);
+
+    console.log(tweet);
+    // Tweet it
+  } catch (e) {
+    console.log(e);
+  }
+};
 
 module.exports = {
   sendTweet,
