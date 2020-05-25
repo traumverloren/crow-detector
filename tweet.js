@@ -15,7 +15,7 @@ const uploadImage = image => {
       response
     ) {
       if (!error) {
-        console.log('Image uploaded!', media);
+        console.log('Image uploaded!');
         resolve(media.media_id_string);
       } else {
         console.log(error, 'There was an error posting the image!');
@@ -36,9 +36,7 @@ const uploadImages = images => {
 };
 
 const postTweet = imageIds => {
-  console.log('imageIds: ', imageIds);
   const imagesString = imageIds.toString();
-  console.log(imagesString);
 
   const status = {
     status: '🥜 time!',
@@ -51,7 +49,7 @@ const postTweet = imageIds => {
         console.log('Tweet posted!');
         resolve(tweet);
       } else {
-        console.log(error, 'There was an error posting the image!');
+        console.log(error, 'There was an error posting the tweet!');
         reject();
       }
     });
@@ -64,7 +62,7 @@ const sendTweet = async images => {
     const imageIds = await uploadImages(images);
     const tweet = await postTweet(imageIds);
 
-    console.log(tweet);
+    console.log(tweet.text);
     // Tweet it
   } catch (e) {
     console.log(e);

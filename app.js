@@ -23,16 +23,6 @@ const { sendTweet } = require('./tweet');
 
 console.log('STARTING CROW CAM!!!');
 
-// TO TEST NEW TWITTER BATCHING AGAIN
-const fileArray = [];
-fileArray.push(fs.readFileSync(`${__dirname}/photos/image_151.jpg`));
-fileArray.push(fs.readFileSync(`${__dirname}/photos/image_152.jpg`));
-fileArray.push(fs.readFileSync(`${__dirname}/photos/image_153.jpg`));
-fileArray.push(fs.readFileSync(`${__dirname}/photos/image_154.jpg`));
-
-sendTweet(fileArray);
-//
-
 pir.watch((err, value) => {
   if (err) {
     throw err;
