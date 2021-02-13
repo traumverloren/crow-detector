@@ -26,17 +26,16 @@ function takePhoto() {
   let filename = `${__dirname}/photos/image_${count}.jpg`;
   let args = [
     '-rot', // rotate 90 degrees
-    '270',
+    '90',
     '-n', // no preview
     '-t', // time to take photo
-    '800',
+    '1000', // 1 second
     '-w', // width
     '400',
     '-h', // height
     '400',
     '-ev',
-    'spotlight',
-    '-awb',
+    'auto',
     'auto',
     '-o',
     filename,
@@ -50,25 +49,25 @@ function takePhoto() {
 
     // Use child_process fork():
     // Send image to trained model to detect if there's a crow
-    let checkPhoto = fork(`${__dirname}/detect.js`);
+//    let checkPhoto = fork(`${__dirname}/detect.js`);
 
-    if (/jpg$/.test(filename)) {
-      checkPhoto.send(filename);
+//    if (/jpg$/.test(filename)) {
+//      checkPhoto.send(filename);
 
       // Get result from model
-      checkPhoto.on('message', data => {
+//      checkPhoto.on('message', data => {
         // console.log(data);
 
-        if (data === CROW) {
-          console.log('CROW IS HERE!');
+//        if (data === CROW) {
+//          console.log('CROW IS HERE!');
           // batch up to 4 photos to upload to twitter
-          batchPhotos(filename);
-        } else {
+          // batchPhotos(filename);
+//        } else {
           // Delete non-crow photos to clean up space for now
-          deletePhoto(filename);
-        }
-      });
-    }
+          // deletePhoto(filename);
+//        }
+//      });
+  //  }
   });
 }
 
