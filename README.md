@@ -14,7 +14,7 @@ _Tweet photos of a crow (verified by a tensorflow machine learning model) from a
 
 - Raspberry Pi 4 (4GB Ram)
 - PIR Sensor (set for continuous motion detection)
-- Pi Camera V2
+- ~~Pi Camera V2~~ HD Camera w/ wide angle lens
 
 ![](rpi-cam-setup.jpg)
 
