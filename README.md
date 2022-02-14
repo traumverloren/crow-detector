@@ -1,11 +1,14 @@
 # Crow Detector
 
-_Tweet photos of a crow (verified by a tensorflow machine learning model) from a RPI4 using 100% Javascript!_
+Tweets photos of a crow (verified by a tensorflow machine learning model) from a RPI4 using 100% Javascript!
 
 ![](orville.jpg)
 
-## Tech:
+_This project was featured in Make Magazine, Volume 75 (page 91)!_
+![IMG_9456](https://user-images.githubusercontent.com/9959680/153825806-6d1bcf8d-92a6-477a-ba7c-61e16ae6c96f.png)
 
+
+## Tech:
 - Node.js
 - Tensorflow.js
 - Teachable Machine (Train the model)
